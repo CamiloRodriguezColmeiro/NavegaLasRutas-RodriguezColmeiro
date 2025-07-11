@@ -1,12 +1,16 @@
-# React + Vite
+Este proyecto se trata de una pagina para hacer pedidos, especificamente una hamburgueseria llamada "El Loco Burguers"
+Se utilizaron: React Js, React Router DOM, Context API, Firebase FireStore y CSS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Funcionalidades Visualización dinámica de productos desde Firestore, filtrado por categoría, selección de cantidad mediante `ItemCount`, agregado de productos al carrito, carrito persistente global con contexto, finalización de compra con formulario validado, registro de orden de compra en Firestore con generación de ID y renderizado condicional de estados.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Estructura de archivos:
+src/
+├── assets/              # Imágenes
+├── components/          # Componentes reutilizables y contenedores
+├── context/             # CartContext (manejo global de carrito)
+├── data/                # Lógica de consultas a Firestore
+├── firebase/            # Configuración de Firebase
+├── pages/               # Páginas como NotFound
+├── App.jsx              # Componente principal con rutas
+├── main.jsx             # Renderizado inicial
+└── index.css            # Estilos base
