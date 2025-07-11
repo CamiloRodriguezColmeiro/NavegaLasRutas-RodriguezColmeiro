@@ -9,7 +9,10 @@ function ItemListContainer() {
 
   useEffect(() => {
     const fetchData = categoryId ? getProductsByCategory : getProducts;
-    fetchData(categoryId).then(setItems);
+
+    fetchData(categoryId).then((data) => {
+      setItems(data);
+    });
   }, [categoryId]);
 
   return (

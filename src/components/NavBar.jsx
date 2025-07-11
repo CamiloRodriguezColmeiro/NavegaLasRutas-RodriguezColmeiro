@@ -10,6 +10,7 @@ function NavBar() {
         <li><Link to="/categoria/Burgas">Burgas</Link></li>
         <li><Link to="/categoria/Papas">Papas Fritas</Link></li>
         <li><Link to="/categoria/Bebidas">Bebidas</Link></li>
+        <li><Link to="/carrito">Carrito</Link></li>
       </ul>
       <CartWidget />
     </nav>

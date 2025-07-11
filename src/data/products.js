@@ -1,87 +1,45 @@
-const products = [
-  {
-    id: "1",
-    name: "Cheeseburger con Bacon",
-    category: "Burgas",
-    description: "Hamburguesa simple de cheddar y Bacon, Incluye Papas Fritas",
-    price: 8000,
-    image: "/assets/CheddarBacon.jpg", 
-  },
-  {
-    id: "2",
-    name: "Cheeseburger con Bacon Doble",
-    category: "Burgas",
-    description: "Hamburguesa doble de cheddar y Bacon, Incluye Papas Fritas",
-    price: 9200,
-    image: "/assets/DobleCheddarBacon.jpg",
-  },
-    {
-    id: "3",
-    name: "Cheeseburger con Bacon Triple",
-    category: "Burgas",
-    description: "Hamburguesa triple de cheddar y Bacon, Incluye Papas Fritas",
-    price: 10400,
-    image: "/assets/TripleCheddarBacon.jpg", 
-  },
-  {
-    id: "4",
-    name: "Papas Fritas Extra",
-    category: "Papas",
-    description: "Papas Fritas Extra",
-    price: 2500,
-    image: "/assets/PapasNormales.jpg",
-  },
-    {
-    id: "5",
-    name: "Papas Fritas con Salsa BBQ",
-    category: "Papas",
-    description: "Papas Fritas con Salsa BBQ casera, Extra, no reemplazan a las que vienen con la Hamburguesa",
-    price: 3500,
-    image: "/assets/PapasSalsaBBQ.jpg", 
-  },
-  {
-    id: "6",
-    name: "Papas Fritas con Cheddar y Bacon",
-    category: "Papas",
-    description: "Papas Fritas con Salsa Cheddar y trozos de Bacon, Extra, no reemplazan a las que vienen con la Hamburguesa",
-    price: 3500,
-    image: "/assets/PapasCheddarBacon.jpg",
-  },
-  {
-    id: "7",
-    name: "Pepsi",
-    category: "Bebidas",
-    description: "Lata 500ml",
-    price: 1500,
-    image: "/assets/Pepsi.jpg", 
-  },
-  {
-    id: "8",
-    name: "Fanta",
-    category: "Bebidas",
-    description: "Lata 500ml",
-    price: 1900,
-    image: "/assets/naranja.jpg",
-  },
-  {
-    id: "9",
-    name: "Sprite",
-    category: "Bebidas",
-    description: "Lata 500ml",
-    price: 1900,
-    image: "/assets/Limon.jpg",
-  },
-];
+import { collection, getDocs, query, where, doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
 
-export const getProducts = () =>
-  new Promise((res) => setTimeout(() => res(products), 1000));
+export async function getProducts() {
+  try {
+    const q = query(collection(db, "products"));
+    const snapshot = await getDocs(q);
+    const products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    return products;
+  } catch (error) {
+    console.error("Error al obtener productos:", error);
+    return [];
+  }
+}
 
-export const getProductById = (id) =>
-  new Promise((res) =>
-    setTimeout(() => res(products.find((p) => p.id === id)), 1000)
-  );
+export async function getProductsByCategory(categoryId) {
+  try {
+    const q = query(
+      collection(db, "products"),
+      where("categoryId", "==", categoryId)
+    );
+    const snapshot = await getDocs(q);
+    const products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    return products;
+  } catch (error) {
+    console.error("Error al obtener productos por categoría:", error);
+    return [];
+  }
+}
 
-export const getProductsByCategory = (categoryId) =>
-  new Promise((res) =>
-    setTimeout(() => res(products.filter((p) => p.category === categoryId)), 1000)
-  );
+export async function getProductById(productId) {
+  try {
+    const docRef = doc(db, "products", productId);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return { id: docSnap.id, ...docSnap.data() };
+    } else {
+      console.warn("Producto no encontrado:", productId);
+      return null;
+    }
+  } catch (error) {
+    console.error("Error al obtener producto por ID:", error);
+    return null;
+  }
+}
