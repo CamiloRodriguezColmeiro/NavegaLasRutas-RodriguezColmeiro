@@ -2,15 +2,3 @@ Este proyecto se trata de una pagina para hacer pedidos, especificamente una ham
 Se utilizaron: React Js, React Router DOM, Context API, Firebase FireStore y CSS
 
 Funcionalidades Visualización dinámica de productos desde Firestore, filtrado por categoría, selección de cantidad mediante `ItemCount`, agregado de productos al carrito, carrito persistente global con contexto, finalización de compra con formulario validado, registro de orden de compra en Firestore con generación de ID y renderizado condicional de estados.
-
-Estructura de archivos:
-src/
-├── assets/              # Imágenes
-├── components/          # Componentes reutilizables y contenedores
-├── context/             # CartContext (manejo global de carrito)
-├── data/                # Lógica de consultas a Firestore
-├── firebase/            # Configuración de Firebase
-├── pages/               # Páginas como NotFound
-├── App.jsx              # Componente principal con rutas
-├── main.jsx             # Renderizado inicial
-└── index.css            # Estilos base
